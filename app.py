@@ -11,7 +11,7 @@ def home():
 def about():
     return "<h1>About Page</h1><p>This is a simple Flask application.</p>"
 
-@app.route('/git_update', methods=['POST'])
+@app.route('/git_update')
 def git_update():
     try:
         repo = git.Repo("./bmgt407Caifu")  # Correctly initialize the repo
