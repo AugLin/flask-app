@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "<h1>Testing auto delivery</h1>"
+    return "<h1>Testing auto delivery, after updaing webhook</h1>"
 
 @app.route('/about')
 def about():
