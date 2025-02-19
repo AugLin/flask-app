@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import git
+import subprocess
 import os
 
 app = Flask(__name__)
@@ -21,6 +22,7 @@ def webhook():
         repo = git.Repo("/home/bmgt407Caifu/flask-app")  # Change this path
         origin = repo.remotes.origin
         origin.pull()
+        subprocess.run(["pip", "install", "-r", f"{repo_path}/requirements.txt"], check=True)
         return jsonify({"message": "Repo updated successfully!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
