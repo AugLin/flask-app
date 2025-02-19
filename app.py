@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 import git
+import os
 
 app = Flask(__name__)
 
@@ -11,15 +12,18 @@ def home():
 def about():
     return "<h1>About Page</h1><p>This is a simple Flask application.</p>"
 
-@app.route('/git_update')
-def git_update():
+@app.route('/webhook')
+def webhook():
+    """
+    GitHub webhook that automatically pulls the latest changes from the repository.
+    """
     try:
-        repo = git.Repo("./bmgt407Caifu")  # Correctly initialize the repo
-        origin = repo.remotes.origin  # Get remote repo
-        origin.pull()  # Pull latest changes
-        return "Updated successfully!", 200
+        repo = git.Repo("/home/bmgt407Caifu/flask-app")  # Change this path
+        origin = repo.remotes.origin
+        origin.pull()
+        return jsonify({"message": "Repo updated successfully!"}), 200
     except Exception as e:
-        return f"Error: {str(e)}", 500  # Debugging error message
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
