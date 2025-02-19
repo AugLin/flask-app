@@ -12,7 +12,7 @@ def home():
 def about():
     return "<h1>About Page</h1><p>This is a simple Flask application.</p>"
 
-@app.route('/webhook')
+@app.route('/webhook', methods=['POST'])
 def webhook():
     """
     GitHub webhook that automatically pulls the latest changes from the repository.
