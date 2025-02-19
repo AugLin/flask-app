@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "<h1>Testing auto delivery. After update, check non-reload</h1>"
+    return "<h1>Testing auto delivery. After update, check re compile</h1>"
 
 @app.route('/about')
 def about():
