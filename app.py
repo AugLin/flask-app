@@ -1,10 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask
+import git
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "<h1>Testing auto delivery, new update</p>"
+    return "<h1>Testing auto delivery</h1>"
 
 @app.route('/about')
 def about():
@@ -12,11 +13,13 @@ def about():
 
 @app.route('/git_update', methods=['POST'])
 def git_update():
-    repo = "./bmgt407Caifu"
-    origin = repo.remotes.origin
-    repo.create_head('master', origin.refs.main).set_tracking_branch(origin.refs.main).checkout()
-    origin.pull()
-    return '', 200
+    try:
+        repo = git.Repo("./bmgt407Caifu")  # Correctly initialize the repo
+        origin = repo.remotes.origin  # Get remote repo
+        origin.pull()  # Pull latest changes
+        return "Updated successfully!", 200
+    except Exception as e:
+        return f"Error: {str(e)}", 500  # Debugging error message
 
 if __name__ == '__main__':
     app.run(debug=True)
