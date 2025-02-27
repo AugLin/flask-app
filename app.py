@@ -9,7 +9,7 @@ db = DBHelper()
 
 @app.route('/')
 def home():
-    users = db.getRows("SELECT * FROM Users WHERE Username = 'lcaifu'")
+    users = db.getRows("SELECT * FROM Users WHERE Username = 'caifu'")
     return render_template("index.html", users=users)
 
 @app.route('/about')
