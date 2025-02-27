@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 import git
 import subprocess
 import os
@@ -11,6 +11,15 @@ db = DBHelper()
 def home():
     users = db.getRows("SELECT * FROM Users WHERE Username = 'caifu'")
     return render_template("index.html", users=users)
+
+@app.route('/addUser', methods=['GET', 'POST'])
+def add_user():
+    if request.method == 'POST':
+        name = request.form['name']
+        username = request.form['username']
+        db.runQuery("INSERT INTO Users (FullName, Username) VALUES ('{name}', '{username}')")
+        return redirect(url_for('home'))
+    return render_template("add_user.html")
 
 @app.route('/about')
 def about():

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users List</title>
+    <title>Add User</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,25 +22,28 @@
             padding: 10px;
             margin: 10px;
         }
-        h1 {
-            color: #333;
+        form {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         }
-        table {
+        input, button {
+            display: block;
             width: 100%;
-            border-collapse: collapse;
-            background-color: white;
+            margin-bottom: 10px;
+            padding: 8px;
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
+        button {
             background-color: #4CAF50;
             color: white;
+            border: none;
+            cursor: pointer;
         }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
+        button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -52,24 +55,17 @@
         <a href="{{ url_for('about') }}">About</a>
     </nav>
 
-    <h1>Users List</h1>
+    <h1>Add a New User</h1>
 
-    {% if users %}
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Username</th>
-            </tr>
-            {% for user in users %}
-            <tr>
-                <td>{{ user.FullName }}</td>
-                <td>{{ user.Username }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>No users found.</p>
-    {% endif %}
+    <form action="{{ url_for('add_user') }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <button type="submit">Add User</button>
+    </form>
 
 </body>
 </html>
