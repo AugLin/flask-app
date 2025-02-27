@@ -17,7 +17,7 @@ def add_user():
     if request.method == 'POST':
         name = request.form['name']
         username = request.form['username']
-        db.runQuery("INSERT INTO Users (FullName, Username) VALUES ('{name}', '{username}')")
+        db.runQuery("INSERT INTO Users (FullName, Username) VALUES ('" + name + "', '"+ username+"')")
         return redirect(url_for('home'))
     return render_template("add_user.html")
 
