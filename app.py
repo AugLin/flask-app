@@ -35,7 +35,7 @@ def query_executor():
         except Exception as e:
             result = f"Error: {e}"
     
-    return render_template("query_executor.html", result=result)
+    return render_template("execute_query.html", result=result)
 
 @app.route('/about')
 def about():
