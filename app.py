@@ -21,6 +21,22 @@ def add_user():
         return redirect(url_for('home'))
     return render_template("add_user.html")
 
+@app.route('/query_executor', methods=['GET', 'POST'])
+def query_executor():
+    result = None
+    if request.method == 'POST':
+        query = request.form['query']
+        try:
+            if query.strip().lower().startswith("select"):
+                result = db.getRows(query)  # Fetch data
+            else:
+                db.runQuery(query)  # Execute non-select queries
+                result = "Query executed successfully!"
+        except Exception as e:
+            result = f"Error: {e}"
+    
+    return render_template("query_executor.html", result=result)
+
 @app.route('/about')
 def about():
     return "<h1>About Page</h1><p>This is a simple Flask application.</p>"
